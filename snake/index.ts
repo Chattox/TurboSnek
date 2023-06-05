@@ -1,5 +1,6 @@
 import { runServer } from './server';
 import { GameState, InfoResponse, MoveResponse } from '../types';
+import { getDirCoord } from '../utils/index';
 
 const info = (): InfoResponse => {
   console.log('Info');
@@ -33,15 +34,12 @@ const move = (gameState: GameState): MoveResponse => {
   const selfHead = gameState.you.body[0];
   const selfNeck = gameState.you.body[1];
 
-  if (selfNeck.x < selfHead.x) {
-    isMoveSafe.left = false;
-  } else if (selfNeck.x > selfHead.x) {
-    isMoveSafe.right = false;
-  } else if (selfNeck.y < selfHead.y) {
-    isMoveSafe.down = false;
-  } else if (selfNeck.y > selfHead.y) {
-    isMoveSafe.up = false;
-  }
+  Object.keys(isMoveSafe).forEach((direction) => {
+    const targetCoord = getDirCoord(direction, selfHead);
+    if (targetCoord.x === selfNeck.x && targetCoord.y === selfNeck.y) {
+      isMoveSafe[direction] = false;
+    }
+  });
 
   // Prevent from colliding with self
 
@@ -52,8 +50,6 @@ const move = (gameState: GameState): MoveResponse => {
   }
 
   const nextMove = safeMoves[Math.floor(Math.random() * safeMoves.length)];
-
-  console.log(nextMove);
 
   console.log(`Move ${gameState.turn}: ${nextMove}`);
   return { move: nextMove };
