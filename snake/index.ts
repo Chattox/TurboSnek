@@ -1,8 +1,7 @@
-import { runServer } from './server';
 import { GameState, InfoResponse, MoveResponse } from '../types';
 import { getDirCoord } from '../utils/index';
 
-const info = (): InfoResponse => {
+export const info = (): InfoResponse => {
   console.log('Info');
 
   return {
@@ -11,18 +10,19 @@ const info = (): InfoResponse => {
     color: '#ff579f',
     head: 'trans-rights-scarf',
     tail: 'pixel',
+    version: '0.0.1-alpha',
   };
 };
 
-const start = (): void => {
+export const start = (): void => {
   console.log('Game start');
 };
 
-const end = (): void => {
+export const end = (): void => {
   console.log('Game end');
 };
 
-const move = (gameState: GameState): MoveResponse => {
+export const move = (gameState: GameState): MoveResponse => {
   const isMoveSafe: { [key: string]: boolean } = {
     up: true,
     down: true,
@@ -36,12 +36,12 @@ const move = (gameState: GameState): MoveResponse => {
 
   Object.keys(isMoveSafe).forEach((direction) => {
     const targetCoord = getDirCoord(direction, selfHead);
+    // Prevent from moving backwards
     if (targetCoord.x === selfNeck.x && targetCoord.y === selfNeck.y) {
       isMoveSafe[direction] = false;
     }
+    // Prevent from going out of bounds
   });
-
-  // Prevent from colliding with self
 
   const safeMoves = Object.keys(isMoveSafe).filter((key) => isMoveSafe[key]);
   if (safeMoves.length == 0) {
@@ -54,10 +54,3 @@ const move = (gameState: GameState): MoveResponse => {
   console.log(`Move ${gameState.turn}: ${nextMove}`);
   return { move: nextMove };
 };
-
-runServer({
-  info: info,
-  start: start,
-  move: move,
-  end: end,
-});

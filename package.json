@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node ./build/snake/index.js",
+    "start": "node ./build/index.js",
     "test": "jest",
     "test-dev": "jest --watch",
     "local": "battlesnake play -W 11 -H 11 --name 'TurboSnek' --url http://localhost:8000 -g solo --browser",
