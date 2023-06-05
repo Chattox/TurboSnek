@@ -1,10 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
+import { GameState, InfoResponse, MoveResponse } from '../types';
 
 export interface BattlesnakeHandlers {
-  info: Function;
-  start: Function;
-  move: Function;
-  end: Function;
+  info(): InfoResponse;
+  start(): void;
+  move(gameState: GameState): MoveResponse;
+  end(): void;
 }
 
 export const runServer = (handlers: BattlesnakeHandlers) => {
@@ -16,7 +17,7 @@ export const runServer = (handlers: BattlesnakeHandlers) => {
   });
 
   app.post('/start', (req: Request, res: Response) => {
-    handlers.start(req.body);
+    handlers.start();
     res.send('ok');
   });
 
@@ -25,7 +26,7 @@ export const runServer = (handlers: BattlesnakeHandlers) => {
   });
 
   app.post('/end', (req: Request, res: Response) => {
-    handlers.end(req.body);
+    handlers.end();
     res.send('ok');
   });
 

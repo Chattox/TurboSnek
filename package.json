@@ -9,7 +9,9 @@
     "start": "node ./build/snake/index.js",
     "test": "jest",
     "test-dev": "jest --watch",
-    "local": "battlesnake play -W 11 -H 11 --name 'TurboSnek' --url http://localhost:8000 -g solo --browser"
+    "local": "battlesnake play -W 11 -H 11 --name 'TurboSnek' --url http://localhost:8000 -g solo --browser",
+    "lint": "eslint . --ext .ts --max-warnings=0",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,9 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
+    "@typescript-eslint/eslint-plugin": "^5.59.9",
+    "@typescript-eslint/parser": "^5.59.9",
+    "husky": "^8.0.0",
     "ts-jest": "^29.1.0",
     "typescript": "^5.1.3"
   }

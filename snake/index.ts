@@ -13,11 +13,11 @@ const info = (): InfoResponse => {
   };
 };
 
-const start = (gameState: GameState): void => {
+const start = (): void => {
   console.log('Game start');
 };
 
-const end = (gameState: GameState): void => {
+const end = (): void => {
   console.log('Game end');
 };
 
