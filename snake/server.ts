@@ -7,7 +7,7 @@ export interface BattlesnakeHandlers {
   end: Function;
 }
 
-const runServer = (handlers: BattlesnakeHandlers) => {
+export const runServer = (handlers: BattlesnakeHandlers) => {
   const app = express();
   app.use(express.json());
 
@@ -21,7 +21,7 @@ const runServer = (handlers: BattlesnakeHandlers) => {
   });
 
   app.post('/move', (req: Request, res: Response) => {
-    handlers.move(req.body);
+    res.send(handlers.move(req.body));
   });
 
   app.post('/end', (req: Request, res: Response) => {

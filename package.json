@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "npm run build",
+    "start": "node ./build/snake/index.js",
+    "test": "jest",
+    "test-dev": "jest --watch",
+    "local": "battlesnake play -W 11 -H 11 --name 'TurboSnek' --url http://localhost:8000 -g solo --browser"
   },
   "repository": {
     "type": "git",
@@ -24,6 +28,8 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.2",
+    "ts-jest": "^29.1.0",
     "typescript": "^5.1.3"
   }
 }
