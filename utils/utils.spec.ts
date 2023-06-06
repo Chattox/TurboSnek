@@ -1,4 +1,4 @@
-import { getDirCoord } from './index';
+import { getDirCoord } from './utils';
 import { Coord } from '../types';
 
 describe('getDirCoords', () => {

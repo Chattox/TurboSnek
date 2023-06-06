@@ -1,4 +1,4 @@
-import { info, start, end, move } from './snake/index';
+import { info, start, end, move } from './snake/snake';
 import { runServer } from './snake/server';
 
 runServer({
