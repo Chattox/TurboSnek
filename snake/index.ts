@@ -30,9 +30,11 @@ export const move = (gameState: GameState): MoveResponse => {
     right: true,
   };
 
-  // Prevent snake from moving backwards
   const selfHead = gameState.you.body[0];
   const selfNeck = gameState.you.body[1];
+
+  const boardWidth = gameState.board.width;
+  const boardHeight = gameState.board.height;
 
   Object.keys(isMoveSafe).forEach((direction) => {
     const targetCoord = getDirCoord(direction, selfHead);
@@ -41,6 +43,14 @@ export const move = (gameState: GameState): MoveResponse => {
       isMoveSafe[direction] = false;
     }
     // Prevent from going out of bounds
+    if (
+      targetCoord.x < 0 ||
+      targetCoord.x > boardWidth - 1 ||
+      targetCoord.y < 0 ||
+      targetCoord.y > boardHeight - 1
+    ) {
+      isMoveSafe[direction] = false;
+    }
   });
 
   const safeMoves = Object.keys(isMoveSafe).filter((key) => isMoveSafe[key]);
