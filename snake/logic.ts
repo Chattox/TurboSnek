@@ -19,10 +19,12 @@ export const getSafeMoves = (gameState: GameState): string[] => {
 
   Object.keys(isMoveSafe).forEach((direction: string) => {
     const targetCoord = getDirCoord(direction, selfHead);
+
     // Prevent from moving backwards
     if (targetCoord.x === selfNeck.x && targetCoord.y === selfNeck.y) {
       isMoveSafe[direction] = false;
     }
+
     // Prevent from going out of bounds
     if (
       targetCoord.x < 0 ||
@@ -32,6 +34,14 @@ export const getSafeMoves = (gameState: GameState): string[] => {
     ) {
       isMoveSafe[direction] = false;
     }
+
+    // Prevent from colliding with own body
+    // TODO prevent getting into dead ends created by own body
+    gameState.you.body.forEach((segment) => {
+      if (targetCoord.x === segment.x && targetCoord.y === segment.y) {
+        isMoveSafe[direction] = false;
+      }
+    });
   });
 
   return Object.keys(isMoveSafe).filter((key) => isMoveSafe[key]);
