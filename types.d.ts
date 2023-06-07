@@ -83,3 +83,8 @@ export interface Distances {
   distance: number;
   coord: Coord;
 }
+
+export interface Move {
+  direction: string;
+  coord: Coord;
+}

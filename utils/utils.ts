@@ -1,17 +1,17 @@
-import { Coord, Distances } from '../types';
+import { Coord, Distances, Move } from '../types';
 
-export const getDirCoord = (dir: string, cur: Coord): Coord => {
+export const getDirCoord = (dir: string, cur: Coord): Move => {
   switch (dir) {
     case 'up':
-      return { x: cur.x, y: cur.y + 1 };
+      return { direction: dir, coord: { x: cur.x, y: cur.y + 1 } };
     case 'down':
-      return { x: cur.x, y: cur.y - 1 };
+      return { direction: dir, coord: { x: cur.x, y: cur.y - 1 } };
     case 'left':
-      return { x: cur.x - 1, y: cur.y };
+      return { direction: dir, coord: { x: cur.x - 1, y: cur.y } };
     case 'right':
-      return { x: cur.x + 1, y: cur.y };
+      return { direction: dir, coord: { x: cur.x + 1, y: cur.y } };
     default:
-      return cur;
+      return { direction: dir, coord: cur };
   }
 };
 
