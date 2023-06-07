@@ -14,3 +14,17 @@ export const getDirCoord = (dir: string, cur: Coord): Coord => {
       return cur;
   }
 };
+
+export const getDistance = (cur: Coord, targets: Coord[]): number[] => {
+  const distances: number[] = [];
+
+  targets.forEach((target) => {
+    const xDist = Math.abs(cur.x - target.x);
+    const yDist = Math.abs(cur.y - target.y);
+    const distance = xDist + yDist;
+
+    distances.push(distance);
+  });
+
+  return distances;
+};
