@@ -76,3 +76,10 @@ export interface BattlesnakeHandlers {
   move(gameState: GameState): MoveResponse;
   end(): void;
 }
+
+// Utils
+
+export interface Distances {
+  distance: number;
+  coord: Coord;
+}

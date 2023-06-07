@@ -1,4 +1,4 @@
-import { Coord } from '../types';
+import { Coord, Distances } from '../types';
 
 export const getDirCoord = (dir: string, cur: Coord): Coord => {
   switch (dir) {
@@ -15,15 +15,15 @@ export const getDirCoord = (dir: string, cur: Coord): Coord => {
   }
 };
 
-export const getDistance = (cur: Coord, targets: Coord[]): number[] => {
-  const distances: number[] = [];
+export const getDistance = (cur: Coord, targets: Coord[]): Distances[] => {
+  const distances: Distances[] = [];
 
   targets.forEach((target) => {
     const xDist = Math.abs(cur.x - target.x);
     const yDist = Math.abs(cur.y - target.y);
     const distance = xDist + yDist;
 
-    distances.push(distance);
+    distances.push({ distance: distance, coord: target });
   });
 
   return distances;

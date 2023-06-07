@@ -38,7 +38,11 @@ describe('utils', () => {
         { x: 5, y: 5 },
         { x: 1, y: 27 },
       ];
-      const expected = [3, 4, 26];
+      const expected = [
+        { distance: 3, coord: { x: 2, y: 1 } },
+        { distance: 4, coord: { x: 5, y: 5 } },
+        { distance: 26, coord: { x: 1, y: 27 } },
+      ];
       const result = getDistance(current, targets);
 
       expect(result).toEqual(expected);
