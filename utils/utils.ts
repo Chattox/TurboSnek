@@ -1,6 +1,6 @@
 import { Coord, Distances, Move } from '../types';
 
-export const getDirCoord = (dir: string, cur: Coord): Move => {
+export const getDirection = (dir: string, cur: Coord): Move => {
   switch (dir) {
     case 'up':
       return { direction: dir, coord: { x: cur.x, y: cur.y + 1 } };

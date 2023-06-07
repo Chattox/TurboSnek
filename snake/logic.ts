@@ -1,5 +1,5 @@
 import { GameState } from '../types';
-import { getDirCoord } from '../utils/utils';
+import { getDirection, getDistance } from '../utils/utils';
 
 type MoveDirections = Record<string, boolean>;
 
@@ -18,19 +18,19 @@ export const getSafeMoves = (gameState: GameState): string[] => {
   const boardHeight = gameState.board.height;
 
   Object.keys(isMoveSafe).forEach((direction: string) => {
-    const targetCoord = getDirCoord(direction, selfHead);
+    const targetMove = getDirection(direction, selfHead);
 
     // Prevent from moving backwards
-    if (targetCoord.x === selfNeck.x && targetCoord.y === selfNeck.y) {
+    if (targetMove.coord.x === selfNeck.x && targetMove.coord.y === selfNeck.y) {
       isMoveSafe[direction] = false;
     }
 
     // Prevent from going out of bounds
     if (
-      targetCoord.x < 0 ||
-      targetCoord.x > boardWidth - 1 ||
-      targetCoord.y < 0 ||
-      targetCoord.y > boardHeight - 1
+      targetMove.coord.x < 0 ||
+      targetMove.coord.x > boardWidth - 1 ||
+      targetMove.coord.y < 0 ||
+      targetMove.coord.y > boardHeight - 1
     ) {
       isMoveSafe[direction] = false;
     }
@@ -38,11 +38,25 @@ export const getSafeMoves = (gameState: GameState): string[] => {
     // Prevent from colliding with own body
     // TODO prevent getting into dead ends created by own body
     gameState.you.body.forEach((segment) => {
-      if (targetCoord.x === segment.x && targetCoord.y === segment.y) {
+      if (targetMove.coord.x === segment.x && targetMove.coord.y === segment.y) {
         isMoveSafe[direction] = false;
       }
     });
   });
 
   return Object.keys(isMoveSafe).filter((key) => isMoveSafe[key]);
+};
+
+export const seekFood = (gameState: GameState, safeMoves: string[]): string[] => {
+  const safeMoveCoords = safeMoves.map((move) => getDirection(move, gameState.you.head).coord);
+  const distances = getDistance(gameState.you.head, gameState.board.food);
+
+  distances.sort((a, b) => a.distance - b.distance);
+  const targetFood = distances[0].coord;
+  const foodwardMoves = getDistance(targetFood, safeMoveCoords);
+  foodwardMoves.sort((a, b) => a.distance - b.distance);
+
+  console.log(foodwardMoves);
+
+  return ['derp'];
 };
