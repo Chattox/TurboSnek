@@ -1,12 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { GameState, InfoResponse, MoveResponse } from '../types';
-
-export interface BattlesnakeHandlers {
-  info(): InfoResponse;
-  start(): void;
-  move(gameState: GameState): MoveResponse;
-  end(): void;
-}
+import { BattlesnakeHandlers } from '../types';
 
 export const runServer = (handlers: BattlesnakeHandlers) => {
   const app = express();

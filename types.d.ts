@@ -1,3 +1,5 @@
+// Battlesnake API
+
 export interface Coord {
   x: number;
   y: number;
@@ -50,7 +52,7 @@ export interface RulesetSettings {
   hazardDamagePerTurn: number;
 }
 
-// Response types
+// Response
 
 export interface InfoResponse {
   apiversion: string;
@@ -64,4 +66,13 @@ export interface InfoResponse {
 export interface MoveResponse {
   move: string;
   shout?: string;
+}
+
+// Server
+
+export interface BattlesnakeHandlers {
+  info(): InfoResponse;
+  start(): void;
+  move(gameState: GameState): MoveResponse;
+  end(): void;
 }
