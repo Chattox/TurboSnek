@@ -32,6 +32,38 @@ describe('logic', () => {
 
       expect(res.some((direction) => selfCollideMoves.includes(direction))).toBeFalsy();
     });
+
+    it('avoids colliding with other snakes', () => {
+      const otherSnakesGameState: GameState = JSON.parse(JSON.stringify(mockGameState));
+      otherSnakesGameState.you.body = [
+        { x: 3, y: 3 },
+        { x: 2, y: 3 },
+      ];
+      otherSnakesGameState.you.head = { x: 3, y: 3 };
+      otherSnakesGameState.board.snakes[1].body = [
+        { x: 4, y: 3 },
+        { x: 5, y: 3 },
+      ];
+      otherSnakesGameState.board.snakes[1].head = { x: 5, y: 3 };
+
+      expect(getSafeMoves(otherSnakesGameState)).not.toContain('right');
+    });
+
+    it('does not avoid other snake heads (to eliminate them)', () => {
+      const otherSnakesGameState: GameState = JSON.parse(JSON.stringify(mockGameState));
+      otherSnakesGameState.you.body = [
+        { x: 3, y: 3 },
+        { x: 2, y: 3 },
+      ];
+      otherSnakesGameState.you.head = { x: 3, y: 3 };
+      otherSnakesGameState.board.snakes[1].body = [
+        { x: 4, y: 3 },
+        { x: 5, y: 3 },
+      ];
+      otherSnakesGameState.board.snakes[1].head = { x: 4, y: 3 };
+
+      expect(getSafeMoves(otherSnakesGameState)).toContain('right');
+    });
   });
   describe('seek food', () => {
     it('will move towards closest food', () => {
