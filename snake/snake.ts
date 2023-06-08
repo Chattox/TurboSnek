@@ -1,5 +1,5 @@
 import { GameState, InfoResponse, MoveResponse } from '../types';
-import { getSafeMoves } from './logic';
+import { getSafeMoves, seekFood } from './logic';
 
 export const info = (): InfoResponse => {
   console.log('Info');
@@ -30,7 +30,7 @@ export const move = (gameState: GameState): MoveResponse => {
     return { move: 'down' };
   }
 
-  const nextMove = safeMoves[Math.floor(Math.random() * safeMoves.length)];
+  const nextMove = seekFood(gameState, safeMoves)[0];
 
   console.log(`Move ${gameState.turn}: ${nextMove}`);
   return { move: nextMove };
