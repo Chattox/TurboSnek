@@ -50,6 +50,9 @@ export const getSafeMoves = (gameState: GameState): string[] => {
           isMoveSafe[direction] = false;
         }
       });
+      if (targetMove.x === snake.head.x && targetMove.y === snake.head.y) {
+        isMoveSafe[direction] = true;
+      }
     });
   });
 
