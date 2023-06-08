@@ -1,4 +1,4 @@
-import { getDirCoord, getDistance } from './utils';
+import { getDirCoord, getDirection, getDistance } from './utils';
 import { Coord } from '../types';
 
 describe('utils', () => {
@@ -47,6 +47,22 @@ describe('utils', () => {
       const result = getDistance(current, targets);
 
       expect(result).toEqual(expected);
+    });
+  });
+
+  describe('getDirection', () => {
+    it('returns string of direction to target Coord from current Coord', () => {
+      const current: Coord = { x: 3, y: 3 };
+      const targets = [
+        { direction: 'left', coord: { x: 2, y: 3 } },
+        { direction: 'right', coord: { x: 4, y: 3 } },
+        { direction: 'up', coord: { x: 3, y: 4 } },
+        { direction: 'down', coord: { x: 3, y: 2 } },
+      ];
+
+      targets.forEach((target) => {
+        expect(getDirection(current, target.coord)).toEqual(target.direction);
+      });
     });
   });
 });

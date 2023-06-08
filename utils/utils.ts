@@ -28,3 +28,17 @@ export const getDistance = (cur: Coord, targets: Coord[]): Distances[] => {
 
   return distances;
 };
+
+export const getDirection = (cur: Coord, target: Coord): string => {
+  if (cur.x > target.x) {
+    return 'left';
+  } else if (cur.x < target.x) {
+    return 'right';
+  } else if (cur.y > target.y) {
+    return 'down';
+  } else if (cur.y < target.y) {
+    return 'up';
+  } else {
+    return 'unknown';
+  }
+};
