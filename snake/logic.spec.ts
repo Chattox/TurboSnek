@@ -1,6 +1,6 @@
 import { GameState } from '../types';
 import { mockGameState } from '../tests/mockGameState';
-import { getSafeMoves } from './logic';
+import { getSafeMoves, seekFood } from './logic';
 
 describe('logic', () => {
   describe('object avoidance', () => {
@@ -26,10 +26,27 @@ describe('logic', () => {
         { x: 2, y: 2 },
         { x: 2, y: 3 },
       ];
+      selfCollisionGameState.you.head = { x: 3, y: 3 };
       const res = getSafeMoves(selfCollisionGameState);
       const selfCollideMoves = ['down', 'left'];
 
       expect(res.some((direction) => selfCollideMoves.includes(direction))).toBeFalsy();
+    });
+  });
+  describe.skip('seek food', () => {
+    it('will move towards food', () => {
+      const seekFoodState: GameState = JSON.parse(JSON.stringify(mockGameState));
+      seekFoodState.you.body = [
+        { x: 3, y: 3 },
+        { x: 3, y: 2 },
+        { x: 3, y: 1 },
+      ];
+      seekFoodState.you.head = { x: 3, y: 3 };
+      seekFoodState.board.food = [{ x: 5, y: 3 }];
+      const safeMoves = ['up', 'left', 'right'];
+      const res = seekFood(seekFoodState, safeMoves);
+      const expected = 'right';
+      expect(res[0]).toEqual(expected);
     });
   });
 });

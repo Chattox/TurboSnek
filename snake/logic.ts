@@ -1,5 +1,5 @@
 import { GameState } from '../types';
-import { getDirection, getDistance } from '../utils/utils';
+import { getDirCoord, getDistance } from '../utils/utils';
 
 type MoveDirections = Record<string, boolean>;
 
@@ -18,19 +18,19 @@ export const getSafeMoves = (gameState: GameState): string[] => {
   const boardHeight = gameState.board.height;
 
   Object.keys(isMoveSafe).forEach((direction: string) => {
-    const targetMove = getDirection(direction, selfHead);
+    const targetMove = getDirCoord(direction, selfHead);
 
     // Prevent from moving backwards
-    if (targetMove.coord.x === selfNeck.x && targetMove.coord.y === selfNeck.y) {
+    if (targetMove.x === selfNeck.x && targetMove.y === selfNeck.y) {
       isMoveSafe[direction] = false;
     }
 
     // Prevent from going out of bounds
     if (
-      targetMove.coord.x < 0 ||
-      targetMove.coord.x > boardWidth - 1 ||
-      targetMove.coord.y < 0 ||
-      targetMove.coord.y > boardHeight - 1
+      targetMove.x < 0 ||
+      targetMove.x > boardWidth - 1 ||
+      targetMove.y < 0 ||
+      targetMove.y > boardHeight - 1
     ) {
       isMoveSafe[direction] = false;
     }
@@ -38,7 +38,7 @@ export const getSafeMoves = (gameState: GameState): string[] => {
     // Prevent from colliding with own body
     // TODO prevent getting into dead ends created by own body
     gameState.you.body.forEach((segment) => {
-      if (targetMove.coord.x === segment.x && targetMove.coord.y === segment.y) {
+      if (targetMove.x === segment.x && targetMove.y === segment.y) {
         isMoveSafe[direction] = false;
       }
     });
@@ -48,7 +48,7 @@ export const getSafeMoves = (gameState: GameState): string[] => {
 };
 
 export const seekFood = (gameState: GameState, safeMoves: string[]): string[] => {
-  const safeMoveCoords = safeMoves.map((move) => getDirection(move, gameState.you.head).coord);
+  const safeMoveCoords = safeMoves.map((move) => getDirCoord(move, gameState.you.head));
   const distances = getDistance(gameState.you.head, gameState.board.food);
 
   distances.sort((a, b) => a.distance - b.distance);
