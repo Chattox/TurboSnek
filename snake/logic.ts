@@ -42,6 +42,15 @@ export const getSafeMoves = (gameState: GameState): string[] => {
         isMoveSafe[direction] = false;
       }
     });
+
+    // Prevent from colliding with other snakes
+    gameState.board.snakes.forEach((snake) => {
+      snake.body.forEach((segment) => {
+        if (targetMove.x === segment.x && targetMove.y === segment.y) {
+          isMoveSafe[direction] = false;
+        }
+      });
+    });
   });
 
   return Object.keys(isMoveSafe).filter((key) => isMoveSafe[key]);
