@@ -64,5 +64,11 @@ describe('utils', () => {
         expect(getDirection(current, target.coord)).toEqual(target.direction);
       });
     });
+    it('returns "unknown" if cant find direction e.g. cur and target are the same', () => {
+      const current: Coord = { x: 3, y: 3 };
+      const target: Coord = { x: 3, y: 3 };
+
+      expect(getDirection(current, target)).toEqual('unknown');
+    });
   });
 });
