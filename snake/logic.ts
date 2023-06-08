@@ -1,5 +1,5 @@
 import { GameState } from '../types';
-import { getDirCoord, getDistance } from '../utils/utils';
+import { getDirCoord, getDirection, getDistance } from '../utils/utils';
 
 type MoveDirections = Record<string, boolean>;
 
@@ -56,7 +56,7 @@ export const seekFood = (gameState: GameState, safeMoves: string[]): string[] =>
   const foodwardMoves = getDistance(targetFood, safeMoveCoords);
   foodwardMoves.sort((a, b) => a.distance - b.distance);
 
-  console.log(foodwardMoves);
+  const direction = getDirection(gameState.you.head, foodwardMoves[0].coord);
 
-  return ['derp'];
+  return [direction];
 };

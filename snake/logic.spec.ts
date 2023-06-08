@@ -33,8 +33,8 @@ describe('logic', () => {
       expect(res.some((direction) => selfCollideMoves.includes(direction))).toBeFalsy();
     });
   });
-  describe.skip('seek food', () => {
-    it('will move towards food', () => {
+  describe('seek food', () => {
+    it('will move towards closest food', () => {
       const seekFoodState: GameState = JSON.parse(JSON.stringify(mockGameState));
       seekFoodState.you.body = [
         { x: 3, y: 3 },
