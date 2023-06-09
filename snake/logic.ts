@@ -1,4 +1,4 @@
-import { GameState } from '../types';
+import { Coord, GameState } from '../types';
 import { checkSafe, getDirCoord, getDirection, getDistance } from '../utils/utils';
 
 export const getSafeMoves = (gameState: GameState): string[] => {
@@ -28,4 +28,23 @@ export const seekFood = (gameState: GameState, safeMoves: string[]): string[] =>
   const direction = getDirection(gameState.you.head, foodwardMoves[0].coord);
 
   return [direction];
+};
+
+export const opportunisticMurder = (gameState: GameState, cur: Coord): string => {
+  let res = '';
+  ['left', 'right', 'down', 'up'].forEach((direction) => {
+    if (res) {
+      return;
+    }
+    const coord = getDirCoord(direction, cur);
+    gameState.board.snakes.forEach((snake) => {
+      console.log(coord);
+      console.log(snake.head);
+      if (coord.x === snake.head.x && coord.y === snake.head.y) {
+        res = direction;
+        return;
+      }
+    });
+  });
+  return res;
 };

@@ -1,5 +1,5 @@
 import { GameState, InfoResponse, MoveResponse } from '../types';
-import { getSafeMoves, seekFood } from './logic';
+import { getSafeMoves, opportunisticMurder, seekFood } from './logic';
 
 export const info = (): InfoResponse => {
   console.log('Info');
@@ -28,6 +28,12 @@ export const move = (gameState: GameState): MoveResponse => {
   if (safeMoves.length == 0) {
     console.log(`Move ${gameState.turn}: No safe moves detected, moving down`);
     return { move: 'down' };
+  }
+
+  const murderOpportunity = opportunisticMurder(gameState, gameState.you.head);
+
+  if (murderOpportunity) {
+    return { move: murderOpportunity };
   }
 
   const nextMove = seekFood(gameState, safeMoves)[0];

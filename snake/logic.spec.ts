@@ -1,6 +1,6 @@
 import { GameState } from '../types';
 import { mockGameState } from '../tests/mockGameState';
-import { getSafeMoves, seekFood } from './logic';
+import { getSafeMoves, opportunisticMurder, seekFood } from './logic';
 
 describe('logic', () => {
   describe('object avoidance', () => {
@@ -97,6 +97,26 @@ describe('logic', () => {
       const res = seekFood(seekFoodState, safeMoves);
       const expected = 'right';
       expect(res[0]).toEqual(expected);
+    });
+  });
+
+  describe('opportunisticMurder', () => {
+    it('returns direction of other snake head when 1 tile away', () => {
+      const opportunisticMurderState: GameState = JSON.parse(JSON.stringify(mockGameState));
+      opportunisticMurderState.you.body = [
+        { x: 3, y: 3 },
+        { x: 2, y: 3 },
+      ];
+      opportunisticMurderState.you.head = { x: 3, y: 3 };
+      opportunisticMurderState.board.snakes[1].body = [
+        { x: 4, y: 3 },
+        { x: 5, y: 3 },
+      ];
+      opportunisticMurderState.board.snakes[1].head = { x: 4, y: 3 };
+
+      expect(
+        opportunisticMurder(opportunisticMurderState, opportunisticMurderState.you.head)
+      ).toEqual('right');
     });
   });
 });
