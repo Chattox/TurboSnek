@@ -83,3 +83,7 @@ export interface Distances {
   distance: number;
   coord: Coord;
 }
+
+// Logic
+
+export type MoveDirections = Record<string, boolean>;
