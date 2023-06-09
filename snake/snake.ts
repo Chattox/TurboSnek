@@ -9,7 +9,7 @@ export const info = (): InfoResponse => {
     author: 'chattox',
     color: '#ff579f',
     head: 'trans-rights-scarf',
-    tail: 'pixel',
+    tail: 'do-sammy',
     version: '0.0.1-alpha',
   };
 };

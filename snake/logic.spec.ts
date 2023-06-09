@@ -65,7 +65,7 @@ describe('logic', () => {
       expect(getSafeMoves(otherSnakesGameState)).toContain('right');
     });
 
-    it.only('avoids dead ends 1 space away', () => {
+    it('avoids dead ends 1 space away', () => {
       const oneSpaceDeadEndState: GameState = JSON.parse(JSON.stringify(mockGameState));
       oneSpaceDeadEndState.you.body = [
         { x: 3, y: 3 },

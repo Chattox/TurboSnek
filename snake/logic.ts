@@ -10,8 +10,6 @@ export const getSafeMoves = (gameState: GameState): string[] => {
     const moveCoord = getDirCoord(move, headPos);
     if (checkSafe(moveCoord, gameState).length > 1) {
       result.push(move);
-    } else {
-      console.log('DEAD END DETECTED');
     }
   });
 
