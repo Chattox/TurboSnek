@@ -64,6 +64,24 @@ describe('logic', () => {
 
       expect(getSafeMoves(otherSnakesGameState)).toContain('right');
     });
+
+    it.only('avoids dead ends 1 space away', () => {
+      const oneSpaceDeadEndState: GameState = JSON.parse(JSON.stringify(mockGameState));
+      oneSpaceDeadEndState.you.body = [
+        { x: 3, y: 3 },
+        { x: 2, y: 3 },
+        { x: 2, y: 4 },
+        { x: 3, y: 4 },
+        { x: 4, y: 4 },
+        { x: 5, y: 4 },
+        { x: 5, y: 3 },
+        { x: 5, y: 2 },
+        { x: 4, y: 2 },
+      ];
+      oneSpaceDeadEndState.you.head = { x: 3, y: 3 };
+
+      expect(getSafeMoves(oneSpaceDeadEndState)).toEqual(['down']);
+    });
   });
   describe('seek food', () => {
     it('will move towards closest food', () => {
