@@ -74,7 +74,7 @@ export interface BattlesnakeHandlers {
   info(): InfoResponse;
   start(): void;
   move(gameState: GameState): MoveResponse;
-  end(): void;
+  end(gameState: GameState): void;
 }
 
 // Utils

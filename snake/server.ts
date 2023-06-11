@@ -19,7 +19,7 @@ export const runServer = (handlers: BattlesnakeHandlers) => {
   });
 
   app.post('/end', (req: Request, res: Response) => {
-    handlers.end();
+    handlers.end(req.body);
     res.send('ok');
   });
 
