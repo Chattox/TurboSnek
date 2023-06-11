@@ -120,6 +120,6 @@ export const trackWinLoss = (gameState: GameState) => {
   } else if (wins === 0) {
     console.log('W/L Ratio: 0');
   } else {
-    console.log(`W/L Ratio: ${wins / losses}`);
+    console.log(`W/L Ratio: ${wins / (wins + losses)}`);
   }
 };
