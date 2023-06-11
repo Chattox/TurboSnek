@@ -38,8 +38,6 @@ export const opportunisticMurder = (gameState: GameState, cur: Coord): string =>
     }
     const coord = getDirCoord(direction, cur);
     gameState.board.snakes.forEach((snake) => {
-      console.log(coord);
-      console.log(snake.head);
       if (coord.x === snake.head.x && coord.y === snake.head.y) {
         res = direction;
         return;
