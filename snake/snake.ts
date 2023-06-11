@@ -1,4 +1,5 @@
 import { GameState, InfoResponse, MoveResponse } from '../types';
+import { trackWinLoss } from '../utils/utils';
 import { getSafeMoves, opportunisticMurder, seekFood } from './logic';
 
 export const info = (): InfoResponse => {
@@ -20,8 +21,8 @@ export const start = (): void => {
   console.log('Game start');
 };
 
-export const end = (): void => {
-  console.log('Game end');
+export const end = (gameState: GameState): void => {
+  trackWinLoss(gameState);
 };
 
 export const move = (gameState: GameState): MoveResponse => {

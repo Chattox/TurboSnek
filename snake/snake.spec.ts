@@ -24,7 +24,7 @@ describe('snake', () => {
   });
   describe('end', () => {
     it('returns nothing', () => {
-      const res = end();
+      const res = end(mockGameState);
 
       expect(res).toBeUndefined();
     });

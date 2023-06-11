@@ -96,3 +96,30 @@ export const checkSafe = (cur: Coord, gameState: GameState): string[] => {
   });
   return Object.keys(isMoveSafe).filter((key) => isMoveSafe[key]);
 };
+
+let wins = 0;
+let losses = 0;
+let draws = 0;
+
+export const trackWinLoss = (gameState: GameState) => {
+  console.log('Game complete');
+  console.log(`Source: ${gameState.game.source}`);
+  if (gameState.board.snakes.length === 0) {
+    console.log('Result: Draw');
+    draws++;
+  } else if (gameState.board.snakes[0].name === gameState.you.name) {
+    console.log('Result: Win');
+    wins++;
+  } else {
+    console.log('Result: Loss');
+    losses++;
+  }
+  console.log(`Wins: ${wins}\nLosses: ${losses}\nDraws: ${draws}`);
+  if (wins > 0 && losses === 0) {
+    console.log(`W/L Ratio: ${wins}`);
+  } else if (wins === 0) {
+    console.log('W/L Ratio: 0');
+  } else {
+    console.log(`W/L Ratio: ${wins / losses}`);
+  }
+};
